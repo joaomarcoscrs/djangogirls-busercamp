@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+<div class="post-list" style = "position:absolute; right:-55%; top:60px">
+    <img src = "{% static 'images/post_edit.png' %}">
+</div>
+    <h2>~ edite seu post</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

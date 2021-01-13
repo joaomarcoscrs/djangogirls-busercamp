@@ -1,0 +1,44 @@
+{% load static %}
+<html>
+    <head>
+        <title>djangolivre - busercamp</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+        <!-- <link href="//fonts.googleapis.com/css?family=Montserrat&:wght@200&display=swap" rel="stylesheet" type="text/css"> -->
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="page-header">
+            {% if user.is_authenticated %}
+                <a href="{% url 'post_new' %}" class="top-menu"><img src = "{% static 'images/newpost.png' %}" style = "position:absolute; right:5%; top:32px"></a>
+            {% else %}
+                <a href="{% url 'login' %}" class="top-menu"><img src = "{% static 'images/login_2.png' %}" style = "position:absolute; right:5%; top:32px"></a>
+            {% endif %}
+            <h1><a href="/">djangolivre</a></h1>
+            <div class="lateral-img-container" style = "position:absolute; left: 34%; top:4px">
+                <img src = "{% static 'images/django4.png' %}" >
+            </div>
+            <div class="buser-logo" style = "position:absolute; left:5%; top:10px">
+                <img src = "{% static 'images/buser_logo.png' %}" align="center">
+            </div>
+            {% if user.is_authenticated %}
+                <p class="frase-logout">~ e aí, {{ user.username }}, tudo bem? <small>(<a href="{% url 'logout' %}" >Sair</a>)</small></p>
+            {% endif %}
+        </div>
+
+
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
