@@ -8,4 +8,5 @@ urlpatterns = [
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path('delete/<int:pk>/', views.post_delete, name='post_delete'),
     path('logout/', views.view_logout, name='logout'),
+    path('post/generate_random_posts', views.generate_random_posts, name='generate_random_posts'),
 ]

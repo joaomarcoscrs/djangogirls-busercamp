@@ -122,4 +122,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.getenv('DJANGO_STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 
-
+CELERY_BROKER_URL = 'pyamqp://guest:guest@localhost:5672//'

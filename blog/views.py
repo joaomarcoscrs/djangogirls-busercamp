@@ -5,19 +5,24 @@ from .forms import PostForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+import random, string
+
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
 
-def post_detail (request, pk):
+
+def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
+
 
 @login_required
 def post_new(request):
     form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
+
 
 @login_required
 def post_new(request):
@@ -32,6 +37,7 @@ def post_new(request):
     else:
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
+
 
 @login_required
 def post_edit(request, pk):
@@ -48,11 +54,26 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
 
+
 @login_required
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('post_list')
+
+
+def generate_random_posts(request):
+    for _ in range(1000):
+        title = int(random.random() * 1000)
+        text = ''.join(random.choice(string.ascii_letters) for _ in range(1000))
+        post = Post.objects.create(
+            title=title,
+            text=text,
+            author_id=1,
+        )
+        post.save()
+    return redirect('/')
+
 
 def view_logout(request):
     logout(request)
